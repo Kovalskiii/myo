@@ -17,4 +17,3 @@ def record(gesture_name, time2record=2.5):
         out.write(str(emg_data))
 
 myo.add_emg_handler(record)
-myo.disconnect()

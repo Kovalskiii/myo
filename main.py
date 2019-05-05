@@ -4,7 +4,7 @@ m = MyoRaw()
 
 m.add_pose_handler(print)
 # m.add_pose_handler(gesture_callback)
-# m.add_emg_handler(print)
+m.add_emg_handler(print)
 m.connect()
 
 try:

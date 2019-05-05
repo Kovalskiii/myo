@@ -26,7 +26,7 @@ if __name__ == '__main__':
     time2record = float(input("Time to record"))
     
     while True:
-        geusture_name = input("gesture name:")
+        gesture_name = input("gesture name:")
         recording = True
         time.sleep(time2record)
         recording = False

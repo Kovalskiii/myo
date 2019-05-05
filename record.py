@@ -13,10 +13,10 @@ def record(gesture_name, write_to=DATA_PATH, time2record=2.5):
     while time.time() - start <= time2record:
         myo.run()
     with open(write_to, 'a') as out:
-        out.write("\n")
         out.write(gesture_name)
         out.write(' ')
         out.write(str(emg_data))
+        out.write('\n')
         print("Flushed {} of samples for {}".format(len(emg_data), gesture_name))
     emg_data.clear()
 

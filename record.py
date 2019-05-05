@@ -6,7 +6,7 @@ DATA_PATH = 'data/'
 myo = MyoRaw()
 
 emg_data = []
-my.add_emg_handler(lambda emg, _: emg_data.append(emg))
+myo.add_emg_handler(lambda emg, _: emg_data.append(emg))
 
 def record(gesture_name, time2record=2.5):
     out = open(DATA_PATH + gesture_name, 'a')

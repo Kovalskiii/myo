@@ -17,16 +17,17 @@ def myo_run():
         myo.run()
 
 myo_thread = threading.Thread(target=myo_run, daemon=True)
+myo_thread.start()
 
 
 
 
 if __name__ == '__main__':
-    write_to = input("File to write:")
-    time2record = float(input("Time to record"))
+    write_to = input("File to write: ")
+    time2record = float(input("Time to record: "))
     
     while True:
-        gesture_name = input("gesture name:")
+        gesture_name = input("gesture name: ")
         recording = True
         time.sleep(time2record)
         recording = False

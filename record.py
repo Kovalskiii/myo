@@ -15,7 +15,9 @@ def record(gesture_name, write_to=DATA_PATH, time2record=2.5):
     with open(write_to, 'a') as out:
         out.write("\n")
         out.write(gesture_name)
+        out.write(' ')
         out.write(str(emg_data))
+        print("Flushed {} of samples for {}".format(len(emg_data), gesture_name))
     emg_data.clear()
 
 if __name__ == '__main__':

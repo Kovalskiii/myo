@@ -15,5 +15,6 @@ def record(gesture_name, time2record=2.5):
     with open(DATA_PATH + gesture_name, 'a+') as out:
         out.write("\n")
         out.write(str(emg_data))
+    emg_data.clear()
 
 myo.add_emg_handler(record)

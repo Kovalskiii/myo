@@ -12,7 +12,7 @@ def record(gesture_name, time2record=2.5):
     start = time.time()
     while time.time() - start <= time2record:
         myo.run()
-    with open(DATA_PATH + gesture_name, 'a') as out:
+    with open(DATA_PATH + gesture_name, 'a+') as out:
         out.write("\n")
         out.write(str(emg_data))
 

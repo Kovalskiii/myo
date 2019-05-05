@@ -18,3 +18,5 @@ def record(gesture_name, write_to=DATA_PATH, time2record=2.5):
         out.write(str(emg_data))
     emg_data.clear()
 
+if __name__ == '__main__':
+    record(*sys.argv[1:])

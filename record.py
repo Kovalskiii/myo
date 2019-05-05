@@ -1,24 +1,39 @@
 import sys
 import time
 from pyoconnect.myo_raw import MyoRaw
-DATA_PATH = 'data'
+import threading
 
 myo = MyoRaw()
 emg_data = []
-myo.add_emg_handler(lambda emg, _: emg_data.append(emg))
+recording = False
+@myo.add_emg_handler
+def record(*args):
+    if recording:
+        emg_data.append(args[0])
 
-def record(gesture_name, write_to=DATA_PATH, time2record=2.5):
+def myo_run():
     myo.connect()
-    start = time.time()
-    while time.time() - start <= time2record:
+    while True:
         myo.run()
-    with open(write_to, 'a') as out:
-        out.write(gesture_name)
-        out.write(' ')
-        out.write(str(emg_data))
-        out.write('\n')
-        print("Flushed {} of samples for {}".format(len(emg_data), gesture_name))
-    emg_data.clear()
+
+myo_thread = threading.Thread(target=myo_run, daemon=True)
+
+
+
 
 if __name__ == '__main__':
-    record(*sys.argv[1:])
+    write_to = input("File to write:")
+    time2record = float(input("Time to record"))
+    
+    while True:
+        geusture_name = input("gesture name:")
+        recording = True
+        time.sleep(time2record)
+        recording = False
+        with open(write_to, 'a') as out:
+            out.write(gesture_name)
+            out.write(' ')
+            out.write(str(emg_data))
+            out.write('\n')
+            print("Flushed {} of samples for {}".format(len(emg_data), gesture_name))
+        emg_data.clear()

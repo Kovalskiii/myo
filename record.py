@@ -4,11 +4,11 @@ from pyoconnect.myo_raw import MyoRaw
 DATA_PATH = 'data/'
 
 myo = MyoRaw()
-myo.connect()
 emg_data = []
 myo.add_emg_handler(lambda emg, _: emg_data.append(emg))
 
 def record(gesture_name, time2record=2.5):
+    myo.connect()
     start = time.time()
     while time.time() - start <= time2record:
         myo.run()

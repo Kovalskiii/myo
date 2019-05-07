@@ -11,10 +11,11 @@ class Gesturee:
         self.emg_max = conf.EMG_MAX
         self.gesture_handlers = []
 
-    def emg_handle(self, emg, dir):
+    def emg_handle(self, emg, dir=None):
         self.buff.append(emg)
-        if len(self.buff) == self.sample_size:
-            y = Gesture(self.model.call(np.array(self.buff)/model.EMG_MAX).argmax())
+        if len(self.buff) >= self.sample_size:
+            _input = np.array([self.buff]) / self.emg_max
+            y = Gesture(self.model.predict(_input).argmax())
             for h in self.gesture_handlers:
                 h(y)
             self.buff.clear()

@@ -31,7 +31,7 @@ if __name__ == '__main__':
     write_to = input("File to write: ")
     time2record = float(input("Time to record: "))
     
-    for gesture in stuff.Gesture:
+    for gesture in Gesture:
         gesture_name = gesture.name
         input("Show {} and press enter".format(gesture_name))
         print("Recording...")

@@ -7,7 +7,7 @@ import tensorflow as tf
 if __name__ == '__main__':
     m = MyoRaw()
     gee = gesture.Gesturee(tf.keras.models.load_model(sys.argv[1]))
-    m.add_pose_handler(print)
+    # m.add_pose_handler(print)
     # m.add_pose_handler(gesture_callback)
     m.add_emg_handler(gee.emg_handle)
     gee.gesture_handlers.append(print)

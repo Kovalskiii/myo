@@ -14,8 +14,11 @@ def record(*args):
     if recording:
         emg_data.append(args[0])
 
+connected = False
 def myo_run():
+    global connected
     myo.connect()
+    connected = True
     while True:
         myo.run()
 
@@ -23,6 +26,8 @@ def myo_run():
 if __name__ == '__main__':
     myo_thread = threading.Thread(target=myo_run, daemon=True)
     myo_thread.start()
+    while not connected:
+        pass
     write_to = input("File to write: ")
     time2record = float(input("Time to record: "))
     

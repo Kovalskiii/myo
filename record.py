@@ -16,13 +16,10 @@ def myo_run():
     while True:
         myo.run()
 
-myo_thread = threading.Thread(target=myo_run, daemon=True)
-myo_thread.start()
-
-
-
 
 if __name__ == '__main__':
+    myo_thread = threading.Thread(target=myo_run, daemon=True)
+    myo_thread.start()
     write_to = input("File to write: ")
     time2record = float(input("Time to record: "))
     

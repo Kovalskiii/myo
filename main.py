@@ -2,7 +2,7 @@ from pyoconnect.myo_raw import MyoRaw
 import sys
 import gesture
 import tensorflow as tf
-# from servo import gesture_callback
+from servo import gesture_callback
 
 if __name__ == '__main__':
     m = MyoRaw()
@@ -10,7 +10,7 @@ if __name__ == '__main__':
     # m.add_pose_handler(print)
     # m.add_pose_handler(gesture_callback)
     m.add_emg_handler(gee.emg_handle)
-    gee.gesture_handlers.append(print)
+    gee.gesture_handlers.append(gesture_callback)
 
     m.connect()
 

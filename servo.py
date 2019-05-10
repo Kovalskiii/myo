@@ -8,7 +8,8 @@ from adafruit_pca9685 import PCA9685
 # This example also relies on the Adafruit motor library available here:
 # https://github.com/adafruit/Adafruit_CircuitPython_Motor
 from adafruit_motor import servo
-from pyoconnect.myo_raw import Pose
+# from pyoconnect.myo_raw import Pose
+from stuff import Gesture
 
 i2c = busio.I2C(SCL, SDA)
 
@@ -20,9 +21,9 @@ servos = [servo.Servo(pca.channels[i], min_pulse=125, max_pulse=575)
           for i in range(1, 6)]
 
 gestures = {
-    Pose.REST: (20, 50, 30, 30, 30, 0),
-    Pose.FIST: (180, 180, 180, 180, 35, 0),
-    Pose.FINGERS_SPREAD: (0, 0, 0, 0, 0, 0),
+    Gesture.Rest: (20, 50, 30, 30, 30, 0),
+    Gesture.Fist: (180, 180, 180, 180, 35, 0),
+    Gesture.Fuck: (0, 0, 0, 0, 0, 0),
 }
 
 

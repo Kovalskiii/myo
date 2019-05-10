@@ -1,3 +1,4 @@
 adafruit-circuitpython-pca9685
 adafruit-circuitpython-motor
 tensorflow
+adafruit-circuitpython-servokit

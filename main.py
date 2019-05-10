@@ -10,7 +10,9 @@ if __name__ == '__main__':
     # m.add_pose_handler(print)
     # m.add_pose_handler(gesture_callback)
     m.add_emg_handler(gee.emg_handle)
-    gee.gesture_handlers.append(gesture_callback)
+    gee.gesture_handlers.extend(
+        [gesture_callback, print]
+    )
 
     m.connect()
 

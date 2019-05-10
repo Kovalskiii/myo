@@ -20,7 +20,7 @@ from stuff import Gesture
 # servos = [servo.Servo(pca.channels[i], min_pulse=125, max_pulse=575) 
 #           for i in range(1, 6)]
 
-kit = ServoKit(channels=8)
+kit = ServoKit(channels=16)
 servos = [kit.servo[i] for i in range(1, 6)]
 
 gestures = {

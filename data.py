@@ -23,7 +23,9 @@ def load(file_name, sub_sample_div=4, conf=Config):
     y = []
     for label, d in data_dict.items():
         g_enum = Gesture[label.capitalize()]
-        add_x = [_d[i:i+conf.SAMPLE_SIZE] for _d in d for i in range(0, len(_d) - conf.SAMPLE_SIZE, conf.SAMPLE_SIZE//sub_sample_div)]
+        add_x = [_d[i:i+conf.SAMPLE_SIZE] 
+                 for _d in d 
+                 for i in range(0, len(_d) - conf.SAMPLE_SIZE, conf.SAMPLE_SIZE//sub_sample_div)]
         x.extend(add_x)
         y.extend([g_enum.value] * len(add_x))
 

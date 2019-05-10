@@ -15,7 +15,9 @@ class Gesturee:
         self.buff.append(emg)
         if len(self.buff) >= self.sample_size:
             _input = np.array([self.buff]) / self.emg_max
-            y = Gesture(self.model.predict(_input).argmax())
+            predictions = self.model.predict(_input)
+            print(predictions)
+            y = Gesture(predictions.argmax())
             for h in self.gesture_handlers:
                 h(y)
             self.buff.clear()

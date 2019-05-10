@@ -31,5 +31,6 @@ def gesture_callback(d):
     if d not in gestures:
         return
     angles = gestures[d]
+    print(angles)
     for s, a in zip(servos, angles):
         s.angle = a

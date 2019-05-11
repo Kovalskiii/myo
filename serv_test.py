@@ -39,4 +39,4 @@ if __name__ == '__main__':
     pwm.set_pwm_freq(60)
 
     for i, pulse in enumerate(pulses, 1):
-        pwm.setPWM(i, 0, pulse)
+        pwm.set_pwm(i, 0, pulse)

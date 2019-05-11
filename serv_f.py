@@ -1,18 +1,19 @@
-from board import SCL, SDA
-import busio
+# Simple demo of of the PCA9685 PWM servo/LED controller library.
+# This will move channel 0 from min to max position repeatedly.
+# Author: Tony DiCola
+# License: Public Domain
+from __future__ import division
+import time
 
 # Import the PCA9685 module.
-from adafruit_pca9685 import PCA9685
+import Adafruit_PCA9685
 
-# This example also relies on the Adafruit motor library available here:
-# https://github.com/adafruit/Adafruit_CircuitPython_Motor
-from adafruit_motor import servo
 
-i2c = busio.I2C(SCL, SDA)
+# Uncomment to enable debug output.
+#import logging
+#logging.basicConfig(level=logging.DEBUG)
 
-# Create a simple PCA9685 class instance.
-pca = PCA9685(i2c)
-pca.frequency = 60
+# Initialise the PCA9685 using the default address (0x40).
 pwm = Adafruit_PCA9685.PCA9685()
 
 # Alternatively specify a different address and/or bus:
@@ -22,30 +23,24 @@ pwm = Adafruit_PCA9685.PCA9685()
 servo_min = 125  # Min pulse length out of 4096
 servo_max = 575  # Max pulse length out of 4096
 
+# Helper function to make setting a servo pulse width simpler.
+def set_servo_pulse(channel, pulse):
+    pulse_length = 1000000    # 1,000,000 us per second
+    pulse_length //= 60       # 60 Hz
+    print('{0}us per period'.format(pulse_length))
+    pulse_length //= 4096     # 12 bits of resolution
+    print('{0}us per bit'.format(pulse_length))
+    pulse *= 1000
+    pulse //= pulse_length
+    pwm.set_pwm(channel, 0, pulse)
+
 # Set frequency to 60hz, good for servos.
 pwm.set_pwm_freq(60)
 
-ServoAng1=180   #мизинец
-ServoAng2=180
-ServoAng3=180
-ServoAng4=180
-ServoAng5=30
-
-
-# long map(long x, long in_min, long in_max, long out_min, long out_max)
-# pulse = (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min
-# pulse2 = map(ServoAng2,0, 180, SERVOMIN,SERVOMAX)
-
-pulse1 = (ServoAng1 - 0) * (servo_max - servo_min) // (180 - 0) + servo_min
-pulse2 = (ServoAng2 - 0) * (servo_max - servo_min) // (180 - 0) + servo_min
-pulse3 = (ServoAng3 - 0) * (servo_max - servo_min) // (180 - 0) + servo_min
-pulse4 = (ServoAng4 - 0) * (servo_max - servo_min) // (180 - 0) + servo_min
-pulse5 = (ServoAng5 - 0) * (servo_max - servo_min) // (180 - 0) + servo_min
-
-
-pwm.set_pwm(1, 0, pulse1)
-pwm.set_pwm(2, 0, pulse2)   
-pwm.set_pwm(3, 0, pulse3)    
-pwm.set_pwm(4, 0, pulse4)     
-pwm.set_pwm(5, 0, pulse5)
-    #  time.sleep(1)
+print('Moving servo on channel 0, press Ctrl-C to quit...')
+while True:
+    # Move servo on channel O between extremes.
+    pwm.set_pwm(0, 0, servo_min)
+    time.sleep(1)
+    pwm.set_pwm(0, 0, servo_max)
+    time.sleep(1)

@@ -1,5 +1,4 @@
 
-from __future__ import division
 import time
 
 # Import the PCA9685 module.
@@ -32,11 +31,11 @@ def amap(x, in_min, in_max, out_min, out_max, inverse=False):
 pulses = [amap(angle, 0, 180, servo_min, servo_max, inverse=(i in (2, 5)))
           for i, angle in enumerate(ServoAngs, 1)]
 
-if __name__ == '__main__':
-    import Adafruit_PCA9685
 
-    pwm = Adafruit_PCA9685.PCA9685()
-    pwm.set_pwm_freq(60)
+import Adafruit_PCA9685
 
-    for i, pulse in enumerate(pulses, 1):
-        pwm.set_pwm(i, 0, pulse)
+pwm = Adafruit_PCA9685.PCA9685()
+pwm.set_pwm_freq(60)
+
+for i, pulse in enumerate(pulses, 1):
+    pwm.set_pwm(i, 0, pulse)

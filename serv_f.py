@@ -1,46 +1,39 @@
-# Simple demo of of the PCA9685 PWM servo/LED controller library.
-# This will move channel 0 from min to max position repeatedly.
-# Author: Tony DiCola
-# License: Public Domain
-from __future__ import division
-import time
+# This example moves a servo its full range (180 degrees by default) and then back.
+
+from board import SCL, SDA
+import busio
 
 # Import the PCA9685 module.
-import Adafruit_PCA9685
+from adafruit_pca9685 import PCA9685
 
+# This example also relies on the Adafruit motor library available here:
+# https://github.com/adafruit/Adafruit_CircuitPython_Motor
+from adafruit_motor import servo
 
-# Uncomment to enable debug output.
-#import logging
-#logging.basicConfig(level=logging.DEBUG)
+i2c = busio.I2C(SCL, SDA)
 
-# Initialise the PCA9685 using the default address (0x40).
-pwm = Adafruit_PCA9685.PCA9685()
+# Create a simple PCA9685 class instance.
+pca = PCA9685(i2c)
+pca.frequency = 60
 
-# Alternatively specify a different address and/or bus:
-#pwm = Adafruit_PCA9685.PCA9685(address=0x41, busnum=2)
+# To get the full range of the servo you will likely need to adjust the min_pulse and max_pulse to
+# match the stall points of the servo.
+# This is an example for the Sub-micro servo: https://www.adafruit.com/product/2201
+# servo7 = servo.Servo(pca.channels[7], min_pulse=580, max_pulse=2480)
+# This is an example for the Micro Servo - High Powered, High Torque Metal Gear:
+#   https://www.adafruit.com/product/2307
+# servo7 = servo.Servo(pca.channels[7], min_pulse=600, max_pulse=2400)
+# This is an example for the Standard servo - TowerPro SG-5010 - 5010:
+#   https://www.adafruit.com/product/155
+# servo7 = servo.Servo(pca.channels[7], min_pulse=600, max_pulse=2500)
+# This is an example for the Analog Feedback Servo: https://www.adafruit.com/product/1404
+# servo7 = servo.Servo(pca.channels[7], min_pulse=600, max_pulse=2600)
 
-# Configure min and max servo pulse lengths
-servo_min = 125  # Min pulse length out of 4096
-servo_max = 575  # Max pulse length out of 4096
+# The pulse range is 1000 - 2000 by default.
+servo2 = servo.Servo(pca.channels[2])
 
-# Helper function to make setting a servo pulse width simpler.
-def set_servo_pulse(channel, pulse):
-    pulse_length = 1000000    # 1,000,000 us per second
-    pulse_length //= 60       # 60 Hz
-    print('{0}us per period'.format(pulse_length))
-    pulse_length //= 4096     # 12 bits of resolution
-    print('{0}us per bit'.format(pulse_length))
-    pulse *= 1000
-    pulse //= pulse_length
-    pwm.set_pwm(channel, 0, pulse)
-
-# Set frequency to 60hz, good for servos.
-pwm.set_pwm_freq(60)
-
-print('Moving servo on channel 0, press Ctrl-C to quit...')
-while True:
-    # Move servo on channel O between extremes.
-    pwm.set_pwm(1, 0, servo_min)
-    time.sleep(1)
-    pwm.set_pwm(1, 0, servo_max)
-    time.sleep(1)
+for i in range(180):
+    servo2.angle = i
+for i in range(180):
+    servo2.angle = 180 - i
+pca.deinit()

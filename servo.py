@@ -29,11 +29,18 @@ gestures = {
     Gesture.Fuck: (0, 0, 0, 0, 0, 0),
 }
 
+def set_angles(angles):
+    for s, a in zip(servos, angles):
+        s.angle = a
 
 def gesture_callback(d):
     if d not in gestures:
         return
     angles = gestures[d]
     print(angles)
-    for s, a in zip(servos, angles):
-        s.angle = a
+    set_angles(angles)
+
+if __name__ == '__main__':
+    for gesture, angles in gestures.items():
+        print("Testing ", gesture, angles)
+        set_angles(angles)

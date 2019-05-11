@@ -1,7 +1,7 @@
 
 # from board import SCL, SDA
 # import busio
-
+import time
 # Import the PCA9685 module.
 # from adafruit_pca9685 import PCA9685
 from adafruit_servokit import ServoKit
@@ -44,3 +44,4 @@ if __name__ == '__main__':
     for gesture, angles in gestures.items():
         print("Testing ", gesture, angles)
         set_angles(angles)
+        time.sleep(1)

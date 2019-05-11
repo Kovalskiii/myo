@@ -1,14 +1,18 @@
-
-import time
+from board import SCL, SDA
+import busio
 
 # Import the PCA9685 module.
-import Adafruit_PCA9685
+from adafruit_pca9685 import PCA9685
 
-# Uncomment to enable debug output.
-#import logging
-#logging.basicConfig(level=logging.DEBUG)
+# This example also relies on the Adafruit motor library available here:
+# https://github.com/adafruit/Adafruit_CircuitPython_Motor
+from adafruit_motor import servo
 
-# Initialise the PCA9685 using the default address (0x40).
+i2c = busio.I2C(SCL, SDA)
+
+# Create a simple PCA9685 class instance.
+pca = PCA9685(i2c)
+pca.frequency = 60
 pwm = Adafruit_PCA9685.PCA9685()
 
 # Alternatively specify a different address and/or bus:

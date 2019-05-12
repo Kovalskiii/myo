@@ -15,4 +15,3 @@ def create_model(conf=Config):
                   metrics=['accuracy'])
 
     return model
-

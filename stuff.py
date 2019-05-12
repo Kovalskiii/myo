@@ -11,14 +11,13 @@ class Gesture(Enum):
     Middle = 7
     Index = 8
     Thumb = 9
-    Spider = 10
-    Rock = 11
-    Rasta = 12
+    Rock = 10
+    Rasta = 11
 
 
 class Config:
-    SAMPLE_SIZE = 30
-    SAMPLE_SUB_DIV = 1
+    SAMPLE_SIZE = 50
+    SAMPLE_SUB_DIV = 2
     GESTURE_NUM = len(Gesture)
     EMG_MAX = 2048
     EPOCHS = 1000

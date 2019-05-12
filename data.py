@@ -23,7 +23,8 @@ def load(file_name, sub_sample_div=10, conf=Config):
     y_train, y_test = [], []
 
     flat = ((Gesture[gesture.capitalize()].value, data)
-            for gesture in data_dict for data in data_dict[gesture])
+            for gesture in data_dict for data in data_dict[gesture]
+            if gesture.capitalize() in Gesture.__members__)
 
     for label, sample in flat:
         sub_samples = [sample[i:i+conf.SAMPLE_SIZE]

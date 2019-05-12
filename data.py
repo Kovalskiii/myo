@@ -16,19 +16,22 @@ def _load(file_name):
     return data_dict
 
 
-def load(file_name, sub_sample_div=Config.SAMPLE_SUB_DIV, conf=Config):
-    data_dict = _load(file_name)
+def load(file_name=Config.DEFAULT_DATA, conf=Config):
+    labels, values = [], []
+    with open(file_name) as f:
+        for line in f.readlines():
+            gesture_name, data = line.split(' ', 1)
+            data_arr = np.array(eval(data))
+
+            labels.append(Gesture[gesture_name.capitalize()].value)
+            values.append(data_arr)
 
     x_train, x_test = [], []
     y_train, y_test = [], []
 
-    flat = ((Gesture[gesture.capitalize()].value, data)
-            for gesture in data_dict for data in data_dict[gesture]
-            if gesture.capitalize() in Gesture.__members__)
-
-    for label, sample in flat:
+    for label, sample in zip(labels, values):
         sub_samples = [sample[i:i+conf.SAMPLE_SIZE]
-                       for i in range(0, len(sample) - conf.SAMPLE_SIZE, conf.SAMPLE_SIZE//sub_sample_div)]
+                       for i in range(0, len(sample) - conf.SAMPLE_SIZE, conf.SAMPLE_SIZE//2)]
 
         train, test = sub_samples[::2], sub_samples[1::2]
 
@@ -45,4 +48,7 @@ def load(file_name, sub_sample_div=Config.SAMPLE_SUB_DIV, conf=Config):
     y_test = np.array(y_test)
 
     return (x_train, y_train), (x_test, y_test)
-    
+
+
+if __name__ == '__main__':
+    load()

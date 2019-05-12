@@ -17,8 +17,8 @@ class Gesture(Enum):
 
 
 class Config:
-    SAMPLE_SIZE = 25
-    SAMPLE_SUB_DIV = 10
+    SAMPLE_SIZE = 30
+    SAMPLE_SUB_DIV = 1
     GESTURE_NUM = len(Gesture)
     EMG_MAX = 2048
     EPOCHS = 1000

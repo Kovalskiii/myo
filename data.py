@@ -31,7 +31,7 @@ def load(file_name=Config.DEFAULT_DATA, conf=Config):
 
     for label, sample in zip(labels, values):
         sub_samples = [sample[i:i+conf.SAMPLE_SIZE]
-                       for i in range(0, len(sample) - conf.SAMPLE_SIZE, conf.SAMPLE_SIZE//2)]
+                       for i in range(0, len(sample) - conf.SAMPLE_SIZE, conf.SAMPLE_SIZE)]
 
         train, test = sub_samples[::2], sub_samples[1::2]
 

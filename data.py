@@ -16,7 +16,7 @@ def _load(file_name):
     return data_dict
 
 
-def load(file_name, sub_sample_div=10, conf=Config):
+def load(file_name, sub_sample_div=Config.SAMPLE_SUB_DIV, conf=Config):
     data_dict = _load(file_name)
 
     x_train, x_test = [], []

@@ -13,7 +13,7 @@ def main(model_load=Config.DEFAULT_SAVE):
     # m.add_pose_handler(gesture_callback)
     m.add_emg_handler(gee.emg_handle)
     gee.gesture_handlers.extend(
-        [gesture_callback, print]
+        [print]
     )
 
     m.connect()

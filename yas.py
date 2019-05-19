@@ -1,21 +1,31 @@
 import RPi.GPIO as GPIO
 from time import sleep
+import atexit
+
 GPIO.setmode(GPIO.BOARD)
 
 GPIO.setup(29, GPIO.OUT)
-pwm=GPIO.PWM(29, 50)
-pwm.start(0)
+
+class Servo:
+    def __init__(self, pin, freq=50):
+        GPIO.setup(pin, GPIO.OUT)
+        self.pwm = GPIO.PWM(pin, freq)
+        self.pin = pin        
+        self.pwm.start(0)
+    
+    def set_angle(self, angle):
+        duty = angle / 18 + 2
+        GPIO.output(self.pin, True)
+        pwm.ChangeDutyCycle(duty)
+        sleep(1)
+        GPIO.output(self.pin, False)
+        pwm.ChangeDutyCycle(0)
+    
+    def __del__(self):
+        self.pwm.stop()
+
+atexit.register(GPIO.cleanup)
 
 
-def SetAngle(angle):
-	duty = angle / 18 + 2
-	GPIO.output(29, True)
-	pwm.ChangeDutyCycle(duty)
-	sleep(1)
-	GPIO.output(29, False)
-	pwm.ChangeDutyCycle(0)
+oof = Servo(29)
 
-SetAngle(90)
-
-pwm.stop()
-GPIO.cleanup()

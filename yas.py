@@ -1,6 +1,7 @@
 import RPi.GPIO as GPIO
 from time import sleep
 import atexit
+import sys
 
 GPIO.setmode(GPIO.BOARD)
 
@@ -16,10 +17,10 @@ class Servo:
     def set_angle(self, angle):
         duty = angle / 18 + 2
         GPIO.output(self.pin, True)
-        pwm.ChangeDutyCycle(duty)
+        self.pwm.ChangeDutyCycle(duty)
         sleep(1)
         GPIO.output(self.pin, False)
-        pwm.ChangeDutyCycle(0)
+        self.pwm.ChangeDutyCycle(0)
     
     def __del__(self):
         self.pwm.stop()
@@ -28,4 +29,4 @@ atexit.register(GPIO.cleanup)
 
 
 oof = Servo(29)
-
+oof.set_angle(int(sys.argv[1]))

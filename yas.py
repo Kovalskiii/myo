@@ -2,6 +2,7 @@ import RPi.GPIO as GPIO
 from time import sleep
 import atexit
 import sys
+from gesture import Gesture
 
 GPIO.setmode(GPIO.BOARD)
 
@@ -39,9 +40,17 @@ servos = [
     InvertedServo(37),
 ]
 
-for servo, angle in zip(servos, sys.argv[1:]):
-    print(servo)
-    sleep(.05)
-    servo.set_angle(int(angle))
+gestures = {
+    Gesture.Rest: (20, 50, 30, 30, 30, 0),
+    Gesture.Fist: (180, 180, 180, 180, 35, 0),
+    Gesture.Fuck: (0, 0, 0, 0, 0, 0),
+}
 
-sleep(1)
+
+def servos_gestures_callback(gesture):
+    angles = gestures.get(gesture)
+    if angles is None:
+        continue
+    for servo, angle in zip(servos, angles):
+        sleep(.05)
+        servo.set_angle(int(angle))

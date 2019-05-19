@@ -12,6 +12,7 @@ class Servo:
         self.pwm = GPIO.PWM(pin, freq)
         self.pin = pin        
         self.pwm.start(0)
+        self.freq = freq
     
     def set_angle(self, angle):
         duty = angle / 18 + 2
@@ -20,8 +21,8 @@ class Servo:
     def __del__(self):
         self.pwm.stop()
 
-   def __repr__(self):
-       return f"Servo(pin={self.pin}, freq={self.freq})"
+    def __repr__(self):
+        return "Servo(pin={}, freq={})".format(self.pin, self.freq)
 
 class InvertedServo(Servo):
     def set_angle(self, angle):
@@ -40,6 +41,7 @@ servos = [
 
 for servo, angle in zip(servos, sys.argv[1:]):
     print(servo)
+    sleep(.05)
     servo.set_angle(int(angle))
 
 sleep(1)

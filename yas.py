@@ -20,11 +20,23 @@ class Servo:
     def __del__(self):
         self.pwm.stop()
 
+
+class InvertedServo(Servo):
+    def set_angle(self, angle):
+        super().set_angle(180 - angle)
+
 atexit.register(GPIO.cleanup)
 
 
-s = Servo(int(sys.argv[1]))
-print("Setting angles")
-s.set_angle(int(sys.argv[2]))
+servos = [
+    Servo(29),
+    InvertedServo(31),
+    Servo(33),
+    Servo(35),
+    InvertedServo(37),
+]
+
+for servo, angle in zip(servos, sys.argv[1:]):
+    servo.set_angle(int(angle))
 
 sleep(1)

@@ -20,6 +20,8 @@ class Servo:
     def __del__(self):
         self.pwm.stop()
 
+   def __repr__(self):
+       return f"Servo(pin={self.pin}, freq={self.freq})"
 
 class InvertedServo(Servo):
     def set_angle(self, angle):
@@ -37,6 +39,7 @@ servos = [
 ]
 
 for servo, angle in zip(servos, sys.argv[1:]):
+    print(servo)
     servo.set_angle(int(angle))
 
 sleep(1)

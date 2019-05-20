@@ -2,8 +2,8 @@ import RPi.GPIO as GPIO
 from time import sleep
 import atexit
 import sys
-from gesture import Gesture
-import threading
+# from gesture import Gesture
+# import threading
 
 GPIO.setmode(GPIO.BCM)
 
@@ -41,15 +41,22 @@ servos = [
     InvertedServo(37),
 ]
 
-gestures = {
-    Gesture.Rest: (20, 50, 30, 30, 30, 0),
-    Gesture.Fist: (180, 180, 180, 180, 35, 0),
-    Gesture.Fuck: (0, 0, 0, 0, 0, 0),
-}
+# gestures = {
+#     Gesture.Rest: (20, 50, 30, 30, 30, 0),
+#     Gesture.Fist: (180, 180, 180, 180, 35, 0),
+#     Gesture.Fuck: (0, 0, 0, 0, 0, 0),
+# }
 
+
+test = [
+    (20, 50, 30, 30, 30, 0),
+    (180, 180, 180, 180, 35, 0),
+    (0, 0, 0, 0, 0, 0),
+]
 
 while True:
-    for angles in gestures.values():
+    for angles in test:
+        print(angles)
         for servo, angle in zip(servos, angles):
             servo.set_angle(angle)
             sleep(.1)

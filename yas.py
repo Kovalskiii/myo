@@ -3,7 +3,7 @@ from time import sleep
 import atexit
 import sys
 # from gesture import Gesture
-# import threading
+import threading
 
 GPIO.setmode(GPIO.BOARD)
 
@@ -47,36 +47,17 @@ servos = [
 #     Gesture.Fuck: (0, 0, 0, 0, 0, 0),
 # }
 
+angles_to_set = (0, 0, 0, 0, 0)
 
-test = [
-    (20, 50, 30, 30, 30, 0),
-    (180, 180, 180, 180, 35, 0),
-    (0, 0, 0, 0, 0, 0),
-]
-
-while True:
-    for angles in test:
-        print(angles)
-        for servo, angle in zip(servos, angles):
+def angles_setter(digit_delay=.05, arm_delay=.5):
+    while True:
+        for servo, angle in zip(servos, angles_to_set):
             servo.set_angle(angle)
-            sleep(.1)
-        sleep(.5)
-
-# angles_to_set = [0, 0, 0, 0, 0]
-# def servos_set(gesture):
-#     while True:
-#     for servo, angle in zip(servos, angles_to_set):
-#         sleep(.1)
-#         servo.set_angle(anlge)
-#         sleep(.5)
+            sleep(digit_delay)
+        sleep(arm_delay)
 
 
-# servo_thread = threading.Thread(servos_set)
-# servo_thread.setDaemon(True)
-# servo_thread.start()
+servo_thread = threading.Thread(angles_setter)
+servo_thread.setDaemon(True)
+servo_thread.start()
 
-# def servos_gestures_callback(gesture):
-#     angles = gestures.get(gesture)
-#     if angles is None:
-#         continue
-#     angles_to_set[:] = angles

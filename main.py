@@ -3,8 +3,18 @@ import sys
 import gesture
 import tensorflow as tf
 # from servo import gesture_callback
-from yas import servos_gestures_callback
+from yas import angles_to_set
 from stuff import Config
+
+gestures = {
+    Gesture.Rest: (20, 50, 30, 30, 30, 0),
+    Gesture.Fist: (180, 180, 180, 180, 35, 0),
+    Gesture.Fuck: (0, 0, 0, 0, 0, 0),
+}
+
+def yasg(gesture):
+    if gesture in gestures:
+        angles_to_set[:] = gesture[gesture]
 
 
 def main(model_load=Config.DEFAULT_SAVE):
@@ -14,7 +24,7 @@ def main(model_load=Config.DEFAULT_SAVE):
     # m.add_pose_handler(gesture_callback)
     m.add_emg_handler(gee.emg_handle)
     gee.gesture_handlers.extend(
-        [print, servos_gestures_callback]
+        [print, yasg]
     )
 
     m.connect()

@@ -16,9 +16,12 @@ def make_interpolater(left_min, left_max, right_min, right_max):
     return interp_fn
 
 angle2pulse = make_interpolater(0, 180, 50, 250)
+angle2pulseinv = make_interpolater(0, 180, 250, 50)
 
-SERVOS = 3, 4, 5, 6, 7
+SERVOS = [lambda a: os.system("{}={}".format(i, int(angle2pulse(a)))) if i not in (4, 7) else
+          lambda a: os.system("{}={}".format(i, int(angle2pulseinv(a))))
+          for i in (3, 4, 5, 6, 7)]
 
 def servo_set(angles):
-    for s, a in zip(SERVOS, angles):
-        os.system("{}={}".format(i, int(angle2pulse(a))))
+    for s_set, angle in zip(SERVOS, angles):
+        s_set(angle)

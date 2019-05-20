@@ -5,7 +5,7 @@ import sys
 # from gesture import Gesture
 # import threading
 
-GPIO.setmode(GPIO.BCM)
+GPIO.setmode(GPIO.BOARD)
 
 
 class Servo:

@@ -5,7 +5,7 @@ import sys
 from gesture import Gesture
 import threading
 
-GPIO.setmode(GPIO.BOARD)
+GPIO.setmode(GPIO.BCM)
 
 
 class Servo:
@@ -47,21 +47,29 @@ gestures = {
     Gesture.Fuck: (0, 0, 0, 0, 0, 0),
 }
 
-angles_to_set = [0, 0, 0, 0, 0]
-def servos_set(gesture):
-    while True:
-    for servo, angle in zip(servos, angles_to_set):
-        sleep(.1)
-        servo.set_angle(anlge)
+
+while True:
+    for angles in gestures.values():
+        for servo, angle in zip(servos, angles):
+            servo.set_angle(angle)
+            sleep(.1)
         sleep(.5)
 
+# angles_to_set = [0, 0, 0, 0, 0]
+# def servos_set(gesture):
+#     while True:
+#     for servo, angle in zip(servos, angles_to_set):
+#         sleep(.1)
+#         servo.set_angle(anlge)
+#         sleep(.5)
 
-servo_thread = threading.Thread(servos_set)
-servo_thread.setDaemon(True)
-servo_thread.start()
 
-def servos_gestures_callback(gesture):
-    angles = gestures.get(gesture)
-    if angles is None:
-        continue
-    angles_to_set[:] = angles
+# servo_thread = threading.Thread(servos_set)
+# servo_thread.setDaemon(True)
+# servo_thread.start()
+
+# def servos_gestures_callback(gesture):
+#     angles = gestures.get(gesture)
+#     if angles is None:
+#         continue
+#     angles_to_set[:] = angles

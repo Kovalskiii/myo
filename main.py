@@ -1,6 +1,7 @@
 from pyoconnect.myo_raw import MyoRaw
 import sys
 import gesture
+from gesture import Gesture
 import tensorflow as tf
 # from servo import gesture_callback
 from yas import angles_to_set
@@ -14,7 +15,7 @@ gestures = {
 
 def yasg(gesture):
     if gesture in gestures:
-        angles_to_set[:] = gesture[gesture]
+        angles_to_set[:] = gestures[gesture]
 
 
 def main(model_load=Config.DEFAULT_SAVE):

@@ -47,7 +47,7 @@ servos = [
 #     Gesture.Fuck: (0, 0, 0, 0, 0, 0),
 # }
 
-angles_to_set = (0, 0, 0, 0, 0)
+angles_to_set = [0, 0, 0, 0, 0]
 
 def angles_setter(digit_delay=.05, arm_delay=.5):
     while True:
@@ -57,7 +57,7 @@ def angles_setter(digit_delay=.05, arm_delay=.5):
         sleep(arm_delay)
 
 
-servo_thread = threading.Thread(angles_setter)
+servo_thread = threading.Thread(target=angles_setter)
 servo_thread.setDaemon(True)
 servo_thread.start()
 

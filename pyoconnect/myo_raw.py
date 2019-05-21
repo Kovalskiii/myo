@@ -190,7 +190,7 @@ class MyoRaw(object):
         self.imu_handlers = []
         self.arm_handlers = []
         self.pose_handlers = []
-
+        self.is_connected = False
     def detect_tty(self):
         for p in comports():
             if re.search(r'PID=2458:0*1', p[2]):
@@ -273,6 +273,7 @@ class MyoRaw(object):
 
             # self.write_attr(0x19, b'\x01\x03\x00\x01\x01')
             self.start_raw()
+            self.is_connected = True
 
         ## add data handlers
         def handle_data(p):
@@ -322,7 +323,7 @@ class MyoRaw(object):
     def disconnect(self):
         if self.conn is not None:
             self.bt.disconnect(self.conn)
-
+        self.is_connected = False
     def start_raw(self):
         '''Sending this sequence for v1.0 firmware seems to enable both raw data and
         pose notifications.
@@ -371,7 +372,7 @@ class MyoRaw(object):
         self.write_attr(0x19, b'\x01\x03\x01\x01\x01')
 
     def vibrate(self, length):
-        if length in xrange(1, 4):
+        if length in range(1, 4):
             ## first byte tells it to vibrate; purpose of second byte is unknown
             self.write_attr(0x19, pack('3B', 3, 1, length))
 

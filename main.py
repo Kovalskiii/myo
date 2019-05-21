@@ -1,4 +1,4 @@
-from pyoconnect.myo_raw import MyoRaw
+from pyoconnect.myo_raw import MyoRaw, Arm
 import sys
 import gesture
 from gesture import Gesture
@@ -29,15 +29,20 @@ def main(model_load=Config.DEFAULT_SAVE):
     # m.add_pose_handler(print)
     # m.add_pose_handler(gesture_callback)
     m.add_emg_handler(gee.emg_handle)
+    m.add_arm_handler(lambda arm, dir: (m.disconnect() if arm == Arm.UNKNOWN else None))
     gee.gesture_handlers.extend(
         [print, wow]
     )
 
-    m.connect()
 
+    m.connect()
+    m.vibrate(2)
     try:
         while True:
-            m.run(1)
+            #if not m.is_connected:
+            #    m.connect()
+            #    m.vibrate(2) 
+            m.run()
     except KeyboardInterrupt:
         m.disconnect()
 

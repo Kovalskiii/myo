@@ -10,9 +10,26 @@ from stuff import Config
 
 gestures = {
     Gesture.Rest: (40, 40, 40, 40, 40),
-    Gesture.Fist: (180, 180, 180, 180, 35),
-    Gesture.Fuck: (180, 180, 40, 180, 50),
+    Gesture.Fist: (180, 180, 180, 180, 40),
+    Gesture.Fuck: (180, 180, 30, 180, 50),
+    Gesture.Like: (180, 180, 180, 180, 30),
+    Gesture.Rasta: (40, 180, 180, 180, 30),
+    Gesture.Rock: (40, 180, 180, 40, 55),
+    Gesture.Peace: (180, 180, 40, 40, 170),
+    Gesture.Pinky: (180, 175, 55, 40, 45),
+    Gesture.Ring: (40, 180, 40, 40, 40),
+    Gesture.Middle: (40, 65, 180, 60, 40),
+    Gesture.Index: (45, 50, 50, 180, 40),
+    Gesture.Thumb: (40, 40, 40, 40, 180)
 }
+#       __
+#     >(' )
+#       )/
+#      /(
+#     /  `----/
+#     \  ~=- /
+#   ~^~^~^~^~^~^~^
+
 
 #def yasg(gesture):
 #    if gesture in gestures:s

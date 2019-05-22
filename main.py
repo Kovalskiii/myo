@@ -7,7 +7,8 @@ import tensorflow as tf
 #from yas import angles_t
 from servo_blaster import servo_set
 from stuff import Config
-
+from gpiozero import Button
+import time
 gestures = {
     Gesture.Rest: (30, 30, 30, 30, 30),
     Gesture.Fist: (180, 180, 180, 180, 40),
@@ -43,10 +44,13 @@ def wow(gesture):
 def main(model_load=Config.DEFAULT_SAVE):
     m = MyoRaw()
     gee = gesture.Gesturee(tf.keras.models.load_model(model_load))
+    b = Button(17)
+    b.when_pressed = m.connect
     # m.add_pose_handler(print)
     # m.add_pose_handler(gesture_callback)
     m.add_emg_handler(gee.emg_handle)
-    #m.add_arm_handler(lambda arm, dir: (m.disconnect() if arm == Arm.UNKNOWN else None))
+    m.add_arm_handler(lambda arm, dir: (m.disconnect() if arm == Arm.UNKNOWN else None))
+    m.add_arm_handler(print)
     gee.gesture_handlers.extend(
         [print, wow]
     )
@@ -56,9 +60,10 @@ def main(model_load=Config.DEFAULT_SAVE):
     m.vibrate(2)
     try:
         while True:
-            #if not m.is_connected:
-            #    m.connect()
             #    m.vibrate(2) 
+            while not  m.is_connected:
+                time.sleep(1)
+            time.sleep(1)
             m.run()
     except KeyboardInterrupt:
         m.disconnect()

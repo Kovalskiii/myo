@@ -204,6 +204,11 @@ class MyoRaw(object):
 
     def connect(self):
         ## stop everything from before
+        
+        
+        if self.is_connected:
+            return
+        self.is_connected = True
         self.bt.end_scan()
         self.bt.disconnect(0)
         self.bt.disconnect(1)
@@ -273,7 +278,6 @@ class MyoRaw(object):
 
             # self.write_attr(0x19, b'\x01\x03\x00\x01\x01')
             self.start_raw()
-            self.is_connected = True
 
         ## add data handlers
         def handle_data(p):
@@ -321,9 +325,11 @@ class MyoRaw(object):
         return None
 
     def disconnect(self):
+        if not self.is_connected:
+            return
+        self.is_connected = False
         if self.conn is not None:
             self.bt.disconnect(self.conn)
-        self.is_connected = False
     def start_raw(self):
         '''Sending this sequence for v1.0 firmware seems to enable both raw data and
         pose notifications.

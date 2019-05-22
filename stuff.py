@@ -23,3 +23,4 @@ class Config:
     EPOCHS = 1000
     DEFAULT_DATA = os.path.join(script_dir, 'data/fresh')
     DEFAULT_SAVE = os.path.join(script_dir, 'saved_models/m')
+    GESTURE_DELAY = 0.5

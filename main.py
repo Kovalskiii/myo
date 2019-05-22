@@ -51,7 +51,7 @@ def main(model_load=Config.DEFAULT_SAVE):
     # m.add_pose_handler(gesture_callback)
     m.add_emg_handler(gee.emg_handle)
     #m.add_arm_handler(lambda arm, dir: (m.disconnect() if arm == Arm.UNKNOWN else None))
-    m.add_arm_handler(print)
+    #m.add_arm_handler(print)
     gee.gesture_handlers.extend(
         [print, wow]
     )

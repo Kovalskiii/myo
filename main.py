@@ -9,6 +9,7 @@ from servo_blaster import servo_set
 from stuff import Config
 from gpiozero import Button
 import time
+import serial
 gestures = {
     Gesture.Rest: (30, 30, 30, 30, 30),
     Gesture.Fist: (180, 180, 180, 180, 40),
@@ -61,10 +62,10 @@ def main(model_load=Config.DEFAULT_SAVE):
     try:
         while True:
             #    m.vibrate(2) 
-            while not  m.is_connected:
-                time.sleep(1)
-            time.sleep(1)
-            m.run()
+            try:
+                m.run()
+            except serial.serialutil.SerialException:
+                continue
     except KeyboardInterrupt:
         m.disconnect()
 

@@ -4,20 +4,21 @@ from stuff import Gesture, Config
 import threading
 from collections import deque
 import time
+import tensorflow as tf
 
 class Gesturee:
-    def __init__(self, model, sample_size=Config.SAMPLE_SIZE, emg_max=Config.EMG_MAX, gesture_delay=Config.GESTURE_DELAY):
-        self.model = model
+    def __init__(self, model_file=Config.DEFAULT_SAVE, sample_size=Config.SAMPLE_SIZE, emg_max=Config.EMG_MAX, gesture_delay=Config.GESTURE_DELAY):
         self.buff = deque(maxlen=sample_size)
         self.sample_size = sample_size
         self.emg_max = emg_max
         self.gesture_delay = gesture_delay
         self.gesture_handlers = []
         def gesture_thread():
-            self.model._make_predict_function()
+            self.model = tf.keras.models.load_model(model_file)
             while True:
-                self.detect_gesture()
                 time.sleep(self.gesture_delay)
+                self.detect_gesture()
+
         self.gesture_thread = threading.Thread(target=gesture_thread)
         self.gesture_thread.setDaemon(True)
         self.gesture_thread.start()

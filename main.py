@@ -44,7 +44,7 @@ def wow(gesture):
 
 def main(model_load=Config.DEFAULT_SAVE):
     m = MyoRaw()
-    gee = gesture.Gesturee(tf.keras.models.load_model(model_load))
+    gee = gesture.Gesturee()
 #    b = Button(17)
 #    b.when_pressed = on_button
     # m.add_pose_handler(print)

@@ -12,15 +12,15 @@ gestures = {
     Gesture.Rest: (30, 30, 30, 30, 30),
     Gesture.Fist: (180, 180, 180, 180, 40),
     Gesture.Fuck: (180, 180, 30, 180, 50),
-    Gesture.Like: (180, 180, 180, 180, 30),
+    Gesture.Like: (180, 180, 180, 180, 20),
     Gesture.Rasta: (30, 180, 180, 180, 20),
-    Gesture.Rock: (40, 180, 180, 40, 55),
+    Gesture.Rock: (30, 180, 180, 30, 55),
     Gesture.Peace: (180, 180, 40, 40, 170),
     #Gesture.Pinky: (180, 175, 55, 40, 45),
-    Gesture.Ring: (40, 180, 40, 40, 30),
-    Gesture.Middle: (40, 60, 180, 60, 30),
-    Gesture.Index: (45, 45, 45, 180, 30),
-    Gesture.Thumb: (40, 40, 40, 40, 180)
+    Gesture.Ring: (30, 180, 30, 30, 30),
+    Gesture.Middle: (30, 40, 180, 40, 30),
+    Gesture.Index: (30, 30, 30, 180, 20),
+    Gesture.Thumb: (30, 30, 30, 30, 175)
 }
 #       __
 #     >(' )

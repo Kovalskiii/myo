@@ -13,7 +13,7 @@ import serial
 gestures = {
     Gesture.Rest: (30, 30, 30, 30, 30),
     Gesture.Fist: (180, 180, 180, 180, 40),
-    Gesture.Fuck: (180, 180, 30, 180, 50),
+    Gesture.Fuck: (180, 180, 30, 180, 30),
     Gesture.Like: (180, 180, 180, 180, 20),
     Gesture.Rasta: (30, 180, 180, 180, 20),
     Gesture.Rock: (20, 180, 180, 20, 55),

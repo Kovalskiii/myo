@@ -190,7 +190,6 @@ class MyoRaw(object):
         self.imu_handlers = []
         self.arm_handlers = []
         self.pose_handlers = []
-        self.is_connected = False
     def detect_tty(self):
         for p in comports():
             if re.search(r'PID=2458:0*1', p[2]):
@@ -204,11 +203,6 @@ class MyoRaw(object):
 
     def connect(self):
         ## stop everything from before
-        
-        
-        if self.is_connected:
-            return
-        self.is_connected = True
         self.bt.end_scan()
         self.bt.disconnect(0)
         self.bt.disconnect(1)
@@ -325,9 +319,6 @@ class MyoRaw(object):
         return None
 
     def disconnect(self):
-        if not self.is_connected:
-            return
-        self.is_connected = False
         if self.conn is not None:
             self.bt.disconnect(self.conn)
     def start_raw(self):

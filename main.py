@@ -45,12 +45,12 @@ def wow(gesture):
 def main(model_load=Config.DEFAULT_SAVE):
     m = MyoRaw()
     gee = gesture.Gesturee(tf.keras.models.load_model(model_load))
-    b = Button(17)
-    b.when_pressed = m.connect
+#    b = Button(17)
+#    b.when_pressed = on_button
     # m.add_pose_handler(print)
     # m.add_pose_handler(gesture_callback)
     m.add_emg_handler(gee.emg_handle)
-    m.add_arm_handler(lambda arm, dir: (m.disconnect() if arm == Arm.UNKNOWN else None))
+    #m.add_arm_handler(lambda arm, dir: (m.disconnect() if arm == Arm.UNKNOWN else None))
     m.add_arm_handler(print)
     gee.gesture_handlers.extend(
         [print, wow]
@@ -62,10 +62,13 @@ def main(model_load=Config.DEFAULT_SAVE):
     try:
         while True:
             #    m.vibrate(2) 
-            try:
-                m.run()
-            except serial.serialutil.SerialException:
-                continue
+            #while not connected:
+            #    pass
+            #try:
+            m.run()
+            #except serial.serialutil.SerialException:
+            #    print("Ouchie")
+            #    continue
     except KeyboardInterrupt:
         m.disconnect()
 

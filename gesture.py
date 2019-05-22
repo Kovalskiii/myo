@@ -29,7 +29,6 @@ class Gesturee:
     def detect_gesture(self):
         if len(self.buff) < self.sample_size:
             return
-        print(self.buff)
         _input = np.array([self.buff]) / self.emg_max
         predictions = self.model.predict(_input)
         y = Gesture(predictions.argmax())

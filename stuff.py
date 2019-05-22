@@ -1,5 +1,6 @@
 from enum import Enum
-
+import os
+script_dir = os.path.dirname(__file__)
 class Gesture(Enum):
     Fist = 0
     Fuck = 1
@@ -20,5 +21,5 @@ class Config:
     GESTURE_NUM = len(Gesture)
     EMG_MAX = 2048
     EPOCHS = 1000
-    DEFAULT_DATA = 'data/fresh'
-    DEFAULT_SAVE = 'saved_models/m'
+    DEFAULT_DATA = os.path.join(script_dir, 'data/fresh')
+    DEFAULT_SAVE = os.path.join(script_dir, 'saved_models/m')

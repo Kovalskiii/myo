@@ -14,10 +14,10 @@ class Gesturee:
         self.gesture_delay = gesture_delay
         self.gesture_handlers = []
         def gesture_thread():
+            self.model._make_predict_function()
             while True:
                 self.detect_gesture()
                 time.sleep(self.gesture_delay)
-
         self.gesture_thread = threading.Thread(target=gesture_thread)
         self.gesture_thread.setDaemon(True)
         self.gesture_thread.start()

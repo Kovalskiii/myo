@@ -16,7 +16,7 @@ gestures = {
     Gesture.Fuck: (180, 180, 5, 180, 20),
     Gesture.Like: (180, 180, 180, 180, 10),
    # Gesture.Rasta: (30, 180, 180, 180, 20),
-    Gesture.Rock: (10, 180, 180, 10, 55),
+    #Gesture.Rock: (10, 180, 180, 10, 55),
     Gesture.Peace: (180, 180, 20, 20, 170),
     #Gesture.Pinky: (180, 175, 55, 40, 45),
     Gesture.Ring: (30, 180, 30, 30, 30),
